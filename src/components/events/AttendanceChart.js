@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Pie, PieChart, Cell } from "recharts";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/UI/chart";
 
 const chartConfig = {
   present: { label: "Present", color: "var(--success, #22c55e)" },

@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts'
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart'
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/UI/chart'
 
 const growthConfig = { count: { label: 'Members', color: 'var(--primary)' } }
 const attendanceConfig = {

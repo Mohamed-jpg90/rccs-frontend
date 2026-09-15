@@ -3,7 +3,7 @@
 import { Users } from "lucide-react"
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Cell } from "recharts"
 
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/UI/chart"
 
 const chartConfig = {
   fillRate: {

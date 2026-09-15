@@ -3,7 +3,7 @@
 import { TrendingUp, TrendingDown, Minus } from "lucide-react"
 import { Line, LineChart, CartesianGrid, XAxis, YAxis } from "recharts"
 
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/UI/chart"
 
 const MONTHS = [
   "January", "February", "March", "April", "May", "June",

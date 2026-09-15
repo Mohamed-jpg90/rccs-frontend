@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts'
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart'
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/UI/chart'
 
 const chartConfig = {
   value: { label: 'Count', color: 'var(--primary)' },
