@@ -6,7 +6,7 @@ import axios from 'axios'
 import { getToken } from './auth'
 
 export const apiClient = axios.create({
-  baseURL:  'http://localhost:5000/api',
+  baseURL:  'https://rccs-backend-production.up.railway.app/api',
 })
  
 apiClient.interceptors.request.use((config) => {
