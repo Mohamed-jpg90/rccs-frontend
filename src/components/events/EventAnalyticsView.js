@@ -15,7 +15,7 @@ import FeedbackList from '@/components/events/FeedbackList'
 import DataCard from '@/components/analysis/DataCard'
 import { MdOutlinePeople, MdCheckCircle, MdCancel, MdPercent, MdPersonAdd } from 'react-icons/md'
 
-const FILE_BASE_URL = https://rccs-backend-production.up.railway.app'
+const FILE_BASE_URL = 'https://rccs-backend-production.up.railway.app'
 
 export default function EventAnalyticsView({ eventId }) {
   // read once on mount — isAdmin() touches localStorage, which only exists client-side.
