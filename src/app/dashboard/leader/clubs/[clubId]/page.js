@@ -8,7 +8,7 @@ import ClubAnalyticsCharts from '@/components/leader/ClubAnalyticsCharts'
 import Top3Leaderboard from '@/components/leader/Top3Leaderboard'
 import ClubMembersManageTable from '@/components/leader/ClubMembersManageTable'
 
-const FILE_BASE_URL = 'http://localhost:5000'
+const FILE_BASE_URL = 'https://rccs-backend-production.up.railway.app'
 
 export default function LeaderClubPage({ params }) {
   const { clubId } = use(params)

@@ -5,7 +5,7 @@ import { apiClient } from '@/lib/api'
 import UsersTable from '@/components/members/UsersTable'
 import DataCard from '@/components/analysis/DataCard'
 
-const FILE_BASE_URL = 'http://localhost:5000'
+const FILE_BASE_URL = 'https://rccs-backend-production.up.railway.app'
 const LIMIT = 20
 
 export default function MembersPage() {

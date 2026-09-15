@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { apiClient } from '@/lib/api'
 import LedClubCard from '@/components/leader/LedClubCard'
 
-const FILE_BASE_URL = 'http://localhost:5000'
+const FILE_BASE_URL = 'https://rccs-backend-production.up.railway.app'
 
 export default function LeaderDashboardPage() {
   const router = useRouter()

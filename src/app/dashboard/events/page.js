@@ -8,7 +8,7 @@ import EventsFilterBar from '@/components/events/EventsFilterBar'
 import EventFormModal from '@/components/events/EventFormModal'
 import { apiClient } from '@/lib/api'
 
-const FILE_BASE_URL = 'http://localhost:5000' // confirmed: uploads are NOT under /api
+const FILE_BASE_URL = 'https://rccs-backend-production.up.railway.app' // confirmed: uploads are NOT under /api
 
 export default function EventsPage() {
   const router = useRouter()
