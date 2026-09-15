@@ -73,10 +73,10 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-[68px]">
             <Link href="/" className="flex items-center gap-2 group">
               <span className="relative flex h-8 w-8 items-center justify-center rounded-full bg-[var(--primary)] text-[var(--text-white)] font-display font-semibold text-sm shadow-[var(--shadow-primary-value)] transition-transform duration-300 group-hover:rotate-12">
-                P
+                Y
               </span>
               <span className="font-display text-lg font-semibold tracking-tight text-[var(--text-primary)]">
-                Pokrovsky Center
+                Youth Club
               </span>
             </Link>
 
