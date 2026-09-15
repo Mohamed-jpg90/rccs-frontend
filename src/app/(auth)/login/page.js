@@ -128,7 +128,7 @@
 // app/login/page.js
 import AuthLayout from "@/components/layout/AuthLayout";
 import AuthLayoutGuard from "@/components/layout/AuthLayoutGuard";
-import LoginForm from "@/components/auth/LoginForm";
+import LoginForm from "@/components/Auth/LoginForm";
 
 export default function LoginPage() {
   return (

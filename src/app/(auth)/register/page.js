@@ -134,7 +134,7 @@
 // app/register/page.js
 import AuthLayout from "@/components/layout/AuthLayout";
 import AuthLayoutGuard from "@/components/layout/AuthLayoutGuard";
-import RegisterForm from "@/components/auth/RegisterForm";
+import RegisterForm from "@/components/Auth/RegisterForm";
 
 export default function RegisterPage() {
   return (
