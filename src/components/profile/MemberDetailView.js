@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { apiClient } from "@/lib/api";
 import { isAuthenticated } from "@/lib/auth";
 import ProfileHeader from "@/components/userProfile/ProfileHeader";
@@ -12,9 +12,10 @@ import MyEventsSection from "@/components/userProfile/MyEventsSection";
 import PointsHistory from "@/components/userProfile/PointsHistory";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
+import { isTeamLeader } from "@/lib/auth";
+import LedClubsSection from "@/components/profile/LedClubsSection";
 
-export default function UserOverviewPage() {
-  const { id } = useParams();
+export default function ProfilePage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({
@@ -23,52 +24,53 @@ export default function UserOverviewPage() {
     badges: { earnedBadges: [], nextBadgeProgress: null },
     certificates: [],
     registrations: [],
+    attendance: [],
     points: [],
   });
 
   useEffect(() => {
     if (!isAuthenticated()) {
-      router.replace(`/login?redirect=/users/${id}`);
+      router.replace("/login?redirect=/profile");
       return;
     }
 
-    if (!id) return;
-
-    const fetchUser = async () => {
+    const fetchAll = async () => {
       try {
-        const [overviewRes, certsRes] = await Promise.all([
-          apiClient.get(`/users/${id}/overview`),
-          apiClient.get(`/users/${id}/certificates`),
-        ]);
+        const [profileRes, kpiRes, badgesRes, certsRes, regsRes, attRes, ptsRes] =
+          await Promise.all([
+            apiClient.get("/me/profile"),
+            apiClient.get("/me/kpi"),
+            apiClient.get("/me/badges"),
+            apiClient.get("/me/certificates"),
+            apiClient.get("/me/registrations"),
+            apiClient.get("/me/attendance"),
+            apiClient.get("/me/points"),
+          ]);
 
-        // overviewRes.data => { user, club, eventRegistrations, kpi, points, badges, certificatesCount }
         setData({
-          user: overviewRes.data.user,
-          kpi: overviewRes.data.kpi,
+          user: profileRes.data.user,
+          kpi: kpiRes.data.kpi,
           badges: {
-            earnedBadges: overviewRes.data.badges?.earnedBadges || [],
-            nextBadgeProgress: overviewRes.data.badges?.nextBadgeProgress || null,
+            earnedBadges: badgesRes.data.earnedBadges || [],
+            nextBadgeProgress: badgesRes.data.nextBadgeProgress || null,
           },
-          registrations: overviewRes.data.eventRegistrations || [],
-          points: overviewRes.data.points?.history || [],
           certificates: certsRes.data.certificates || [],
+          registrations: regsRes.data.registrations || [],
+          attendance: attRes.data.history || [],
+          points: ptsRes.data.history || [],
         });
       } catch (error) {
-        console.error("Error loading user overview:", error);
+        console.error("Error loading profile:", error);
         if (error.response?.status === 401) {
-          router.replace("/login");
-        } else if (error.response?.status === 403) {
-          router.replace("/unauthorized"); // only Admin/Team Leader can view this
-        } else if (error.response?.status === 404) {
-          router.replace("/users"); // user not found
+          router.replace("/login?redirect=/profile");
         }
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUser();
-  }, [id, router]);
+    fetchAll();
+  }, [router]);
 
   if (loading) {
     return (
@@ -84,11 +86,11 @@ export default function UserOverviewPage() {
 
   return (
     <main>
-      <Navbar />
       <ProfileHeader user={data.user} />
       <KpiSection kpi={data.kpi} />
+      {isTeamLeader() && <LedClubsSection />}
       <BadgesSection {...data.badges} />
-      <MyEventsSection registrations={data.registrations} attendance={[]} />
+      <MyEventsSection registrations={data.registrations} attendance={data.attendance} />
       <PointsHistory history={data.points} />
       <CertificatesSection certificates={data.certificates} />
       <Footer />
