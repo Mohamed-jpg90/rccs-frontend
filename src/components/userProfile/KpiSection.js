@@ -23,12 +23,12 @@ export default function KpiSection({ kpi }) {
   ];
 
   return (
-    <section className="max-w-7xl mx-auto px-6 md:px-10 py-16">
+    <section className="max-w-7xl  px-6 md:px-0 py-16">
       <span className="inline-block text-xs font-semibold tracking-[0.18em] uppercase text-[var(--primary)] mb-3">
         Performance
       </span>
       <h2 className="font-display text-3xl md:text-4xl font-semibold text-[var(--text-primary)] mb-10">
-        Your KPIs
+         KPIs
       </h2>
 
       <div className="grid md:grid-cols-[280px_1fr] gap-6">

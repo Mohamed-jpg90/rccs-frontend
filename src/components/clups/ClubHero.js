@@ -25,6 +25,7 @@ export default function ClubHero({ club, baseUrl = "", eventsCount = 0 }) {
             src={imageSrc}
             alt={clubName}
             fill
+            sizes="(max-width: 768px) 100vw, 40vw"
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
           />
         ) : (

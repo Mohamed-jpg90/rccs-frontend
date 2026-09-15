@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const FILE_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace("/api", "") ||
-  "http://localhost:5000";
+  "https://rccs-backend-production.up.railway.app";
 
 export default function SponsorCard({ sponsor, onEdit, onDelete }) {
   const [imageError, setImageError] = useState(false);

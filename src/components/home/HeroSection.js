@@ -5,9 +5,8 @@ import Link from "next/link";
 import { FaCalendarAlt, FaMapMarkerAlt, FaArrowRight } from "react-icons/fa";
 import SponsorsSection from "./SponsorsSection";
 
-const FILE_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL?.replace("/api", "") ||
-  "http://localhost:5000";
+const FILE_BASE_URL = 'https://rccs-backend-production.up.railway.app'
+ 
 
 export default function HeroSection({ events = [], onRegister }) {
   const [current, setCurrent] = useState(0);
@@ -118,7 +117,7 @@ export default function HeroSection({ events = [], onRegister }) {
               >
                 <div className="relative h-44 md:h-48 w-full">
                   <img
-                    src={`${FILE_BASE_URL}${event.coverImage}`}
+                    src={`${event.coverImage}`}
                     alt={event.title}
                     className="h-full w-full object-cover"
                   />

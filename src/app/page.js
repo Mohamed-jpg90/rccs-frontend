@@ -23,7 +23,11 @@ export default function LandingPage() {
   useEffect(() => {
     apiClient
       .get("/events", { params: { status: "Upcoming", limit: 5 } })
-      .then((res) => setUpcomingEvents(res.data.events || []))
+      .then((res) => {
+        
+        console.log(res.data.events);
+        
+        setUpcomingEvents(res.data.events || [])})
       .catch((err) => console.error("Error fetching events:", err))
       .finally(() => setLoadingEvents(false));
 
