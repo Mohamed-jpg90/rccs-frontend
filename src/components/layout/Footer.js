@@ -14,11 +14,29 @@ const LINK_GROUPS = [
     title: "Members",
     links: [
       { label: "My Profile", href: "/profile" },
-      { label: "Leaderboard", href: "/leaderboard" },
+      { label: "Volunteers", href: "/volunteers" },
       { label: "Certificates", href: "/profile#certificates" },
     ],
   },
 ];
+const social = [
+  {
+    key:1,
+    icon:FaInstagram,
+    link : 'https://www.instagram.com/youth_club_at_the_russian_home?stkn=cXZkenc3ZTZwYXVq'
+  },
+    {
+      key:2,
+    icon:FaFacebook,
+    link : 'https://www.facebook.com/share/1JW53Z3PHK/?mibextid=wwXIfr'
+  },
+    {
+      key:3,
+    icon:FaTelegram,
+    link : 'https://t.me/youth_club_2022'
+  },
+
+]
 
 export default function Footer() {
   return (
@@ -34,10 +52,10 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--primary)] text-[var(--text-white)] font-display font-semibold text-sm">
-                P
+                Y
               </span>
               <span className="font-display text-lg font-semibold text-[var(--text-primary)]">
-                Pokrovsky Center
+                Youth Club
               </span>
             </div>
             <p className="text-sm text-[var(--text-muted)] leading-relaxed max-w-xs mb-5">
@@ -45,7 +63,7 @@ export default function Footer() {
               members of every background.
             </p>
             <div className="flex items-center gap-3">
-              {[FaFacebook, FaInstagram, FaTelegram].map((Icon, i) => (
+              {/* {[FaFacebook, FaInstagram, FaTelegram].map((Icon, i) => (
                 <a
                   key={i}
                   href="#"
@@ -53,7 +71,18 @@ export default function Footer() {
                 >
                   <Icon className="text-sm" />
                 </a>
-              ))}
+              ))} */}
+              {
+                social.map((icon)=>(
+                     <a
+                  key={icon.key}
+                  href={icon.link}
+                  className="h-9 w-9 flex items-center justify-center rounded-full border border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--primary)] hover:border-[var(--primary)] transition-colors"
+                >
+                  <icon.icon className="text-sm" />
+                </a>
+                ))
+              }
             </div>
           </div>
 
@@ -90,7 +119,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <FaEnvelope className="text-[var(--primary)]" />
-                info@rccs.org
+                youthclub.russianhouseincairo@gmail.com
               </li>
             </ul>
           </div>
