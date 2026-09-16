@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "RCCS Dashboard",
+  title: "RCCS ",
   description: "RCCS clubs and events management dashboard",
 };
 
