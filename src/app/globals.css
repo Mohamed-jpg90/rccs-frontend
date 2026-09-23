@@ -12,15 +12,6 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-
-
 :root {
   /* ===========================================
       BACKGROUNDS
@@ -121,80 +112,6 @@
   --z-modal-value: 2000;
   --z-toast-value: 3000;
 }
-
-/* :root.dark { */
-  /* ===========================================
-      BACKGROUNDS
-  ========================================== */
-  /* --bg-main: #0c0e17;
-  --bg-sidebar: #121522;
-  --bg-navbar: #121522;
-  --bg-surface: #171b2b;
-  --bg-card: rgba(18, 21, 34, 0.7);
-
-  --bg-hover: #1f243a;
-  --bg-active: #2a314f;
-
-  --Background-Circle-color-1: #8176af;
-  --Background-Circle-color-2: #f43f5e;
-  --Background-Circle-color-3: #9285c7;
-
-  --Background-Circle-opacity-1: 0.15;
-  --Background-Circle-opacity-2: 0.12;
-  --Background-Circle-opacity-3: 0.12; */
-  /* ===========================================
-      PRIMARY & ACCENT COLORS (Dark Mode)
-  ========================================== */
-  /* --primary: #9d92cd;
-  --primary-hover: #b4aae0;
-  --primary-active: #cbbff2;
-  --primary-light: rgba(157, 146, 205, 0.08);
-
-  --secondary: #94a3b8;
-
-  --accent: #cbbff2;
-  --accent-hover: #ded5ff;
-  --accent-active: #eee8ff; */
-
-  /* ===========================================
-      TEXT
-  ========================================== */
-  /* --text-primary: #f1f5f9;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  --text-disabled: #475569;
-  --text-placeholder: #475569; */
-
-  /* ===========================================
-      BORDER
-  ========================================== */
-  /* --border: #1e2538;
-  --border-light: #232b42;
-  --border-focus: #9d92cd;
-  --divider: #1e2538; */
-
-  /* ===========================================
-      STATUS
-  ========================================== */
-  /* --success: #10b981;
-  --success-bg: rgba(16, 185, 129, 0.1);
-  --warning: #f59e0b;
-  --warning-bg: rgba(245, 158, 11, 0.1);
-  --danger: #ef4444;
-  --danger-bg: rgba(239, 68, 68, 0.1);
-  --info: #3b82f6;
-  --info-bg: rgba(59, 130, 246, 0.1); */
-
-  /* ===========================================
-      SHADOWS
-  ========================================== */
-  /* --shadow-xs-value: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-sm-value: 0 4px 12px rgba(0, 0, 0, 0.35);
-  --shadow-md-value: 0 8px 28px rgba(0, 0, 0, 0.4);
-  --shadow-lg-value: 0 20px 45px rgba(0, 0, 0, 0.45);
-  --shadow-primary-value:
-    0 0 0 1px rgba(157, 146, 205, 0.1), 0 0 18px rgba(157, 146, 205, 0.12); */
-/* } */
 
 @theme {
 
