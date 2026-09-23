@@ -29,7 +29,7 @@ export default function ClubItemsTable({ items = [], type = 'events', title }) {
   const heading = title ?? (isEvents ? 'Events' : 'Content')
   const noun = isEvents ? 'event' : 'item'
 
-  const goTo = (item) => router.push(isEvents ? `/events/${item._id}` : `/content/${item._id}`)
+  const goTo = (item) => router.push(isEvents ? `/dashboard/events/${item._id}` : `/dashboard/content/${item._id}`)
 
   return (
     <div className="flex flex-col rounded-2xl border border-[var(--border)] bg-[var(--bg-card)] p-5 shadow-sm">
