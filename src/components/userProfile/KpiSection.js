@@ -23,7 +23,7 @@ export default function KpiSection({ kpi }) {
   ];
 
   return (
-    <section className="max-w-7xl  px-6 md:px-0 py-16">
+    <section className="max-w-7xl  px-6 md:m-auto  py-16">
       <span className="inline-block text-xs font-semibold tracking-[0.18em] uppercase text-[var(--primary)] mb-3">
         Performance
       </span>
