@@ -4,12 +4,12 @@ import React, { useEffect, useState, useMemo } from 'react'
 import { MdSearch, MdCheck } from 'react-icons/md'
 import Modal from '@/components/shared/Modal'
 import { apiClient } from '@/lib/api'
-import useDebounce from '@/hooks/useDebounce'
 
 /**
- * AssignTeamLeaderModal — searches users on the server (GET /users?search=)
- * and lets the admin assign any non-admin user as this club's Team Leader.
- * The backend promotes the user to the "Team Leader" role automatically.
+ * AssignTeamLeaderModal — loads users once (GET /users), filters them
+ * client-side, and lets the admin assign any non-admin user as this
+ * club's Team Leader. The backend promotes the user to the
+ * "Team Leader" role automatically.
  */
 export default function AssignTeamLeaderModal({ isOpen, onClose, clubId, existingIds = [], onAssigned }) {
   const [users, setUsers] = useState([])
@@ -18,23 +18,17 @@ export default function AssignTeamLeaderModal({ isOpen, onClose, clubId, existin
   const [assigningId, setAssigningId] = useState(null)
   const [error, setError] = useState(null)
 
-  const debouncedSearch = useDebounce(search, 400)
-
-  // Reset when the modal opens
-  useEffect(() => {
-    if (!isOpen) return
-    setSearch('')
-    setError(null)
-  }, [isOpen])
-
-  // Fetch from the server whenever the modal opens or the search changes
+  // Fetch all users once each time the modal opens
   useEffect(() => {
     if (!isOpen) return
     let cancelled = false
 
+    setSearch('')
+    setError(null)
     setIsLoading(true)
+
     apiClient
-      .get('/users', { params: { search: debouncedSearch, page: 1, limit: 50 } })
+      .get('/users', { params: { page: 1, limit: 1000 } }) // large limit so nobody is hidden by pagination
       .then((res) => {
         if (cancelled) return
         const all = res.data?.users ?? []
@@ -50,17 +44,24 @@ export default function AssignTeamLeaderModal({ isOpen, onClose, clubId, existin
     return () => {
       cancelled = true
     }
-  }, [isOpen, debouncedSearch])
+  }, [isOpen])
 
-  // Show current Team Leaders first, then regular users
-  const sortedUsers = useMemo(
-    () =>
-      [...users].sort((a, b) => {
-        if (a.role === b.role) return 0
-        return a.role === 'Team Leader' ? -1 : 1
-      }),
-    [users]
-  )
+  // Client-side search by name or email, current Team Leaders first
+  const filteredUsers = useMemo(() => {
+    const q = search.trim().toLowerCase()
+    const matches = q
+      ? users.filter(
+          (u) =>
+            u.fullName?.toLowerCase().includes(q) ||
+            u.email?.toLowerCase().includes(q)
+        )
+      : users
+
+    return [...matches].sort((a, b) => {
+      if (a.role === b.role) return 0
+      return a.role === 'Team Leader' ? -1 : 1
+    })
+  }, [users, search])
 
   const handleAssign = async (user) => {
     setAssigningId(user._id)
@@ -97,12 +98,12 @@ export default function AssignTeamLeaderModal({ isOpen, onClose, clubId, existin
         <div className="flex max-h-80 flex-col gap-1 overflow-y-auto">
           {isLoading && <p className="py-6 text-center text-sm text-muted-foreground">Loading users...</p>}
 
-          {!isLoading && sortedUsers.length === 0 && (
+          {!isLoading && filteredUsers.length === 0 && (
             <p className="py-6 text-center text-sm text-muted-foreground">No users found.</p>
           )}
 
           {!isLoading &&
-            sortedUsers.map((user) => {
+            filteredUsers.map((user) => {
               const isAssigned = existingIds.includes(user._id)
               const isAssigning = assigningId === user._id
               return (
