@@ -4,13 +4,12 @@ import React, { useEffect, useState, useMemo } from 'react'
 import { MdSearch, MdCheck } from 'react-icons/md'
 import Modal from '@/components/shared/Modal'
 import { apiClient } from '@/lib/api'
-
-const TEAM_LEADER_ROLE = "Team Leader" 
+import useDebounce from '@/hooks/useDebounce'
 
 /**
- * AssignTeamLeaderModal — fetches GET /users, filters to users whose
- * role is already TeamLeader, and lets the admin assign one to this
- * club (POST /clubs/:clubId/team-leaders).
+ * AssignTeamLeaderModal — searches users on the server (GET /users?search=)
+ * and lets the admin assign any non-admin user as this club's Team Leader.
+ * The backend promotes the user to the "Team Leader" role automatically.
  */
 export default function AssignTeamLeaderModal({ isOpen, onClose, clubId, existingIds = [], onAssigned }) {
   const [users, setUsers] = useState([])
@@ -19,37 +18,57 @@ export default function AssignTeamLeaderModal({ isOpen, onClose, clubId, existin
   const [assigningId, setAssigningId] = useState(null)
   const [error, setError] = useState(null)
 
+  const debouncedSearch = useDebounce(search, 400)
+
+  // Reset when the modal opens
   useEffect(() => {
     if (!isOpen) return
     setSearch('')
     setError(null)
+  }, [isOpen])
+
+  // Fetch from the server whenever the modal opens or the search changes
+  useEffect(() => {
+    if (!isOpen) return
+    let cancelled = false
+
     setIsLoading(true)
     apiClient
-      .get('/users')
+      .get('/users', { params: { search: debouncedSearch, page: 1, limit: 50 } })
       .then((res) => {
-        const allUsers = res.data?.users ?? res.data ?? []
-        setUsers(allUsers.filter((u) => u.role === TEAM_LEADER_ROLE))
+        if (cancelled) return
+        const all = res.data?.users ?? []
+        setUsers(all.filter((u) => u.role !== 'Admin')) // backend rejects Admins
       })
       .catch((err) => {
+        if (cancelled) return
         console.error(err)
         setError('Could not load users.')
       })
-      .finally(() => setIsLoading(false))
-  }, [isOpen])
+      .finally(() => !cancelled && setIsLoading(false))
 
-  const filteredUsers = useMemo(() => {
-    const q = search.trim().toLowerCase()
-    if (!q) return users
-    return users.filter(
-      (u) => u.fullName?.toLowerCase().includes(q) || u.email?.toLowerCase().includes(q)
-    )
-  }, [users, search])
+    return () => {
+      cancelled = true
+    }
+  }, [isOpen, debouncedSearch])
+
+  // Show current Team Leaders first, then regular users
+  const sortedUsers = useMemo(
+    () =>
+      [...users].sort((a, b) => {
+        if (a.role === b.role) return 0
+        return a.role === 'Team Leader' ? -1 : 1
+      }),
+    [users]
+  )
 
   const handleAssign = async (user) => {
     setAssigningId(user._id)
     setError(null)
     try {
       await apiClient.post(`/clubs/${clubId}/team-leaders`, { userId: user._id })
+      // Reflect the auto-promotion locally
+      setUsers((prev) => prev.map((u) => (u._id === user._id ? { ...u, role: 'Team Leader' } : u)))
       onAssigned?.()
     } catch (err) {
       console.error(err)
@@ -68,7 +87,7 @@ export default function AssignTeamLeaderModal({ isOpen, onClose, clubId, existin
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search team leaders by name or email..."
+            placeholder="Search users by name or email..."
             className="w-full rounded-full border border-[var(--border)] bg-[var(--bg-main)] py-2.5 pl-10 pr-4 text-sm text-[var(--text-primary)] outline-none transition-colors focus:border-[var(--primary)]"
           />
         </div>
@@ -76,16 +95,14 @@ export default function AssignTeamLeaderModal({ isOpen, onClose, clubId, existin
         {error && <p className="text-sm text-[var(--danger)]">{error}</p>}
 
         <div className="flex max-h-80 flex-col gap-1 overflow-y-auto">
-          {isLoading && <p className="py-6 text-center text-sm text-muted-foreground">Loading team leaders...</p>}
+          {isLoading && <p className="py-6 text-center text-sm text-muted-foreground">Loading users...</p>}
 
-          {!isLoading && filteredUsers.length === 0 && (
-            <p className="py-6 text-center text-sm text-muted-foreground">
-              No users with the Team Leader role found. Set a user&apos;s role first, then assign them here.
-            </p>
+          {!isLoading && sortedUsers.length === 0 && (
+            <p className="py-6 text-center text-sm text-muted-foreground">No users found.</p>
           )}
 
           {!isLoading &&
-            filteredUsers.map((user) => {
+            sortedUsers.map((user) => {
               const isAssigned = existingIds.includes(user._id)
               const isAssigning = assigningId === user._id
               return (
@@ -97,9 +114,9 @@ export default function AssignTeamLeaderModal({ isOpen, onClose, clubId, existin
                     <span className="truncate font-medium text-[var(--text-primary)]">
                       {user.fullName ?? 'Unknown'}
                     </span>
-                    {user.email && (
-                      <span className="truncate text-xs text-muted-foreground">{user.email}</span>
-                    )}
+                    <span className="truncate text-xs text-muted-foreground">
+                      {user.email} · {user.role}
+                    </span>
                   </div>
 
                   {isAssigned ? (
