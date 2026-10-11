@@ -1,5 +1,6 @@
 const TOKEN_KEY = 'rccs:token'
 const USER_KEY = 'rccs:user'
+import { jwtDecode } from 'jwt-decode'
 
 export function saveAuth({ token, user }) {
   if (typeof window === 'undefined') return
@@ -28,8 +29,40 @@ export function clearAuth() {
   localStorage.removeItem(USER_KEY)
 }
 
+export function logoutAndRedirect() {
+  if (typeof window === 'undefined') return
+
+  const { pathname, search } = window.location
+  clearAuth()
+
+  if (pathname !== '/login' && pathname !== '/register') {
+    const target = encodeURIComponent(`${pathname}${search}`)
+    window.location.replace(`/login?redirect=${target}`)
+  }
+}
+
+export function getTokenExpiry(token = getToken()) {
+  if (!token) return null
+
+  try {
+    const { exp } = jwtDecode(token)
+    return typeof exp === 'number' ? exp * 1000 : null
+  } catch {
+    return null
+  }
+}
+
 export function isAuthenticated() {
-  return Boolean(getToken())
+  const token = getToken()
+  if (!token) return false
+
+  const expiresAt = getTokenExpiry(token)
+  if (!expiresAt || expiresAt <= Date.now()) {
+    clearAuth()
+    return false
+  }
+
+  return true
 }
 
 export function isAdmin() {
