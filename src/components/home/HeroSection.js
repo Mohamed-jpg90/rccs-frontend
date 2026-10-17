@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FaCalendarAlt, FaMapMarkerAlt, FaArrowRight } from "react-icons/fa";
 import SponsorsSection from "./SponsorsSection";
 
-const FILE_BASE_URL = 'https://rccs-backend-production.up.railway.app'
+const FILE_BASE_URL = 'https://rccs-backend-production-5b79.up.railway.appy.app'
  
 
 export default function HeroSection({ events = [], onRegister }) {

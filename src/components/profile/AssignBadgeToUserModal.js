@@ -7,7 +7,7 @@ import toast from 'react-hot-toast'
 import Modal from '@/components/shared/Modal'
 import { apiClient } from '@/lib/api'
 
-const FILE_BASE_URL = 'https://rccs-backend-production.up.railway.app'
+const FILE_BASE_URL = 'https://rccs-backend-production-5b79.up.railway.app'
 
 export default function AssignBadgeToUserModal({
   isOpen,

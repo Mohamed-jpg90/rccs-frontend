@@ -6,7 +6,7 @@ import SocialLinksInput from "@/components/shared/SocialLinksInput";
 
 const FILE_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace("/api", "") ||
-  "https://rccs-backend-production.up.railway.app";
+  "https://rccs-backend-production-5b79.up.railway.app";
 
 const EMPTY_FORM = { name: "", title: "", description: "", sector: "" };
 const EMPTY_SOCIAL = { instagram: "", tiktok: "", linkedin: "", facebook: "", twitter: "", website: "" };

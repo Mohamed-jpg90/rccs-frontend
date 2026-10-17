@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { MdChevronRight } from "react-icons/md";
 
-const FILE_BASE_URL = 'https://rccs-backend-production.up.railway.app';
+const FILE_BASE_URL = 'https://rccs-backend-production-5b79.up.railway.appy.app';
 
 export default function TopMembersList({ members = [] }) {
   const router = useRouter();

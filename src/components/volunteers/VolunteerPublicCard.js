@@ -6,7 +6,7 @@ import { FaUser } from "react-icons/fa";
 
 const FILE_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace("/api", "") ||
-  "https://rccs-backend-production.up.railway.app";
+  "https://rccs-backend-production-5b79.up.railway.app";
 
 export default function VolunteerPublicCard({ volunteer }) {
   const [imageError, setImageError] = useState(false);

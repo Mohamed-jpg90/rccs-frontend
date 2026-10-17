@@ -10,7 +10,7 @@ import SocialLinksDisplay from "@/components/shared/SocialLinksDisplay";
 
 const FILE_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace("/api", "") ||
-  "https://rccs-backend-production.up.railway.app";
+  "https://rccs-backend-production-5b79.up.railway.app";
 
 export default function SponsorDetailsPage() {
   const { sponsorId } = useParams();

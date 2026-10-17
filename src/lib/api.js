@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getToken, logoutAndRedirect } from './auth'
 
 export const apiClient = axios.create({
-  baseURL: 'https://rccs-backend-production.up.railway.app/api',
+  baseURL: 'https://rccs-backend-production-5b79.up.railway.app/api',
 })
 
 apiClient.interceptors.request.use((config) => {

@@ -10,7 +10,7 @@ import { MdOutlinePeople, MdCheckCircle, MdArticle } from 'react-icons/md'
 import ClubTeamLeadersTable from '@/components/clups/ClubTeamLeadersTable'
 import ClubJoinRequestsTable from '@/components/clups/ClubJoinRequestsTable'
 
-const FILE_BASE_URL = 'https://rccs-backend-production.up.railway.app'
+const FILE_BASE_URL = 'https://rccs-backend-production-5b79.up.railway.app'
 
 export default function ClubDetailPage({ params }) {
   const { clubId } = use(params)

@@ -6,7 +6,7 @@ import { apiClient } from "@/lib/api";
 
 const FILE_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace("/api", "") ||
-  "https://rccs-backend-production.up.railway.app";
+  "https://rccs-backend-production-5b79.up.railway.app";
 
 // How many times to repeat the sponsor list so the track is always
 // comfortably wider than the screen — otherwise the loop looks like it
