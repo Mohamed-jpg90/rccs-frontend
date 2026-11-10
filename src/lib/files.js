@@ -1,6 +1,5 @@
 const FILE_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL?.replace("/api", "") ||
-  "https://rccs-backend-production-5b79.up.railway.app";
+  process.env.NEXT_PUBLIC_API_URL?.replace("/api", "") 
 
 // Builds an absolute URL from a relative backend path like "/uploads/x.png"
 export function getFileUrl(path) {

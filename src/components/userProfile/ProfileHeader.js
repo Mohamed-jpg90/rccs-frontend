@@ -1,5 +1,9 @@
-import { FaUserCircle, FaUsers, FaCircle } from "react-icons/fa";
+"use client";
+
+import { useState } from "react";
+import { FaUserCircle, FaUsers, FaCircle, FaLock } from "react-icons/fa";
 import { getFileUrl } from "@/lib/files";
+import ChangePasswordModal from "./ChangePasswordModal";
 
 const STATUS_COLORS = {
   Active: "var(--success)",
@@ -7,7 +11,8 @@ const STATUS_COLORS = {
   Suspended: "var(--danger)",
 };
 
-export default function ProfileHeader({ user }) {
+export default function ProfileHeader({ user, showChangePassword = false }) {
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   if (!user) return null;
 
   const statusColor = STATUS_COLORS[user.status] || "var(--text-muted)";
@@ -72,6 +77,16 @@ export default function ProfileHeader({ user }) {
                 {user.status}
               </span>
             </div>
+            {showChangePassword && (
+              <button
+                type="button"
+                onClick={() => setIsPasswordModalOpen(true)}
+                className="mt-4 inline-flex items-center gap-2 rounded-full border border-[var(--border)] px-4 py-2 text-sm font-medium text-[var(--text-secondary)] transition-colors hover:border-[var(--primary)] hover:text-[var(--primary)]"
+              >
+                <FaLock />
+                Change password
+              </button>
+            )}
           </div>
 
           {/* Points highlight */}
@@ -85,6 +100,7 @@ export default function ProfileHeader({ user }) {
           </div>
         </div>
       </div>
+      {showChangePassword && <ChangePasswordModal isOpen={isPasswordModalOpen} onClose={() => setIsPasswordModalOpen(false)} />}
     </section>
   );
 }

@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { apiClient } from '@/lib/api'
 import UsersTable from '@/components/members/UsersTable'
 import DataCard from '@/components/analysis/DataCard'
+import ResetPasswordByEmailModal from '@/components/members/ResetPasswordByEmailModal'
 
 const FILE_BASE_URL = 'https://rccs-backend-production-5b79.up.railway.appy.app'
 const LIMIT = 20
@@ -12,6 +13,7 @@ export default function MembersPage() {
   const [users, setUsers] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [isResetPasswordOpen, setIsResetPasswordOpen] = useState(false)
 
   const [page, setPage] = useState(1)
   const [totalUsers, setTotalUsers] = useState(0)
@@ -122,6 +124,16 @@ export default function MembersPage() {
         <DataCard label="Users" value={counts.regular} />
       </div>
 
+      <div className="flex justify-end">
+        <button
+          type="button"
+          onClick={() => setIsResetPasswordOpen(true)}
+          className="rounded-full border border-[var(--border)] px-4 py-2 text-sm font-medium text-[var(--text-secondary)] transition-colors hover:border-[var(--primary)] hover:text-[var(--primary)]"
+        >
+          Reset by email
+        </button>
+      </div>
+
       {isLoading ? (
         <div className="flex h-64 items-center justify-center">
           <div className="h-8 w-8 animate-spin rounded-full border-2 border-[var(--primary)] border-t-transparent" />
@@ -150,6 +162,11 @@ export default function MembersPage() {
           onPageChange={setPage}
         />
       )}
+
+      <ResetPasswordByEmailModal
+        isOpen={isResetPasswordOpen}
+        onClose={() => setIsResetPasswordOpen(false)}
+      />
     </div>
   )
 }

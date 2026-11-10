@@ -12,7 +12,7 @@ import AssignBadgeModal from '@/components/badges/AssignBadgeModal'
 import ConfirmDeleteDialog from '@/components/shared/ConfirmDeleteDialog'
 import { useRouter } from 'next/navigation'
 
-const BASE_URL = 'https://rccs-backend-production-5b79.up.railway.app'
+const BASE_URL =   process.env.NEXT_PUBLIC_API_URL 
 
 export default function ClubsAndBadgesPage() {
   const router = useRouter()

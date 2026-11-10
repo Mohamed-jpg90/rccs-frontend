@@ -1,8 +1,10 @@
 import axios from 'axios'
 import { getToken, logoutAndRedirect } from './auth'
 
+const BaseUrl = process.env.NEXT_PUBLIC_API_URL
+
 export const apiClient = axios.create({
-  baseURL: 'https://rccs-backend-production-5b79.up.railway.app/api',
+  baseURL: BaseUrl,
 })
 
 apiClient.interceptors.request.use((config) => {

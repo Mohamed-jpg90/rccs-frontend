@@ -86,7 +86,7 @@ export default function ProfilePage() {
 
   return (
     <main>
-      <ProfileHeader user={data.user} />
+      <ProfileHeader user={data.user} showChangePassword />
       {!isTeamLeader() && !isAdmin() && <KpiSection kpi={data.kpi} />}
       {isTeamLeader() && <LedClubsSection />}
       <BadgesSection {...data.badges} />

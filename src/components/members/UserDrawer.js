@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { FiX, FiTrash2 } from 'react-icons/fi'
 import UserAvatar from './UserAvatar'
 import StatusToggle from './StatusToggle'
+import ChangePasswordSection from './ChangePasswordSection'
 
 const ROLES = ['Admin', 'Team Leader', 'User']
 
@@ -99,6 +100,8 @@ export default function UserDrawer({
               <p className="text-lg font-semibold text-[var(--text-primary)]">{user.totalPoints}</p>
             </div>
           )}
+
+          <ChangePasswordSection userId={user._id} userName={user.fullName} />
         </div>
 
         <div className="border-t border-[var(--border)] px-5 py-4">

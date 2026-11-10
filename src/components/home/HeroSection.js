@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaCalendarAlt, FaMapMarkerAlt, FaArrowRight } from "react-icons/fa";
 import SponsorsSection from "./SponsorsSection";
+import { getFileUrl } from "@/lib/files";
 
 const FILE_BASE_URL = 'https://rccs-backend-production-5b79.up.railway.appy.app'
  
